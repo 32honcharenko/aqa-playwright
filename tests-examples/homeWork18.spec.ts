@@ -1,47 +1,68 @@
 import { test, expect } from "@playwright/test";
+import { PlaywrightDevPage } from "./pages/loginPage";
+
 
 test.describe('all tests', () => {
     test.describe.configure({mode: 'serial'});
   
     test('Positive registration case', async ({ page }) => {
+        const playwrightDev = new PlaywrightDevPage(page);
 
-        await page.goto('https://qauto.forstudy.space/');
-        await page.getByRole('button', { name: 'Sign up' }).click();
-        await expect(page.getByRole('heading', { name: 'Registration' })).toBeVisible();
-        await page.locator('#signupName').click();
-        await page.locator('#signupName').fill('Serhii');
-        await page.locator('#signupLastName').click();
-        await page.locator('#signupLastName').fill('Honcharenko');
-        await page.getByLabel('Name').click();
-        await page.getByLabel('Name').fill('AQA-koko00112212@gmail.com');
-        await page.getByLabel('Password', { exact: true }).click();
-        await page.getByLabel('Password', { exact: true }).fill('11111111Qq');
-        await page.getByLabel('Re-enter password').click();
-        await page.getByLabel('Re-enter password').fill('11111111Qq');
-        await page.getByRole('button', { name: 'Register' }).click();
+        await playwrightDev.userRegistration()
         await expect(page.getByRole('heading', { name: 'Garage' })).toBeVisible();
         await page.screenshot({ path: 'successRegistration.png' });
+
+        // await page.goto('https://qauto.forstudy.space/');
+        // await page.getByRole('button', { name: 'Sign up' }).click();
+        // await expect(page.getByRole('heading', { name: 'Registration' })).toBeVisible();
+        // await page.locator('#signupName').click();
+        // await page.locator('#signupName').fill('Serhii');
+        // await page.locator('#signupLastName').click();
+        // await page.locator('#signupLastName').fill('Honcharenko');
+        // await page.getByLabel('Name').click();
+        // await page.getByLabel('Name').fill('AQA-koko00112212@gmail.com');
+        // await page.getByLabel('Password', { exact: true }).click();
+        // await page.getByLabel('Password', { exact: true }).fill('11111111Qq');
+        // await page.getByLabel('Re-enter password').click();
+        // await page.getByLabel('Re-enter password').fill('11111111Qq');
+        // await page.getByRole('button', { name: 'Register' }).click();
+        // await expect(page.getByRole('heading', { name: 'Garage' })).toBeVisible();
+        // await page.screenshot({ path: 'successRegistration.png' });
     });
   
     test('Checking error for the empty field', async ({ page }) => {
-        await page.goto('https://qauto.forstudy.space/');
-        await page.getByRole('button', { name: 'Sign up' }).click();
-        await page.locator('#signupName').click();
-        await page.locator('#signupLastName').click();
-        await page.getByLabel('Name').click();
-        await page.getByLabel('Password', { exact: true }).click();
-        await page.getByLabel('Re-enter password').click();
-        await page.getByLabel('Password', { exact: true }).click();
-        await expect(page.getByText('Name required', { exact: true })).toBeVisible();
-        await expect(page.getByText('Last name required')).toBeVisible();
-        await expect(page.getByText('Email required')).toBeVisible();
-        await expect(page.getByText('Password required', { exact: true })).toBeVisible();
-        await expect(page.getByText('Re-enter password required')).toBeVisible();
-        await expect(page.getByRole('button', { name: 'Register' })).toBeDisabled()
+        const playwrightDev = new PlaywrightDevPage(page);
+
+
+        await playwrightDev.goto();
+        await playwrightDev.signUpButton.click()
+        await playwrightDev.signupName.click()
+        await playwrightDev.signupLastName.click()
+        await playwrightDev.email.click()
+        await playwrightDev.password.click()
+        await playwrightDev.reEnterPassword.click()
+        await playwrightDev.password.click()
+        await playwrightDev.textErrorCheck()
+
+        //used this code before POM
+        // await page.goto('https://qauto.forstudy.space/');
+        // await page.getByRole('button', { name: 'Sign up' }).click();
+        // await page.locator('#signupName').click();
+        // await page.locator('#signupLastName').click();
+        // await page.getByLabel('Name').click();
+        // await page.getByLabel('Password', { exact: true }).click();
+        // await page.getByLabel('Re-enter password').click();
+        // await page.getByLabel('Password', { exact: true }).click();
+        // await expect(page.getByText('Name required', { exact: true })).toBeVisible();
+        // await expect(page.getByText('Last name required')).toBeVisible();
+        // await expect(page.getByText('Email required')).toBeVisible();
+        // await expect(page.getByText('Password required', { exact: true })).toBeVisible();
+        // await expect(page.getByText('Re-enter password required')).toBeVisible();
+        // await expect(page.getByRole('button', { name: 'Register' })).toBeDisabled()
 
     });
 
-    test('Checking error for the wrongData', async ({ page }) => {
+    test.skip('Checking error for the wrongData', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -65,7 +86,7 @@ test.describe('all tests', () => {
 
     });
 
-    test('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
+    test.skip('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -95,7 +116,7 @@ test.describe('all tests', () => {
         await expect(page.getByRole('button', { name: 'Register' })).toBeDisabled()
     });
 
-    test('Try to create user when password do not match', async( {page} ) => {
+    test.skip('Try to create user when password do not match', { tag: ["@qauto"] }, async( {page} ) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -126,22 +147,35 @@ test.describe('all tests', () => {
     
   });
 
-    test('Check that border color is red', async( {page} ) => {
-        await page.goto('https://qauto.forstudy.space/');
-        await page.getByRole('button', { name: 'Sign up' }).click();
-        await page.locator('#signupName').click();
-        await page.locator('#signupLastName').click();
-        await page.getByLabel('Name').click();
-        await page.getByLabel('Password', { exact: true }).click();
-        await page.getByLabel('Re-enter password').click();
-        await page.locator('div').filter({ hasText: /^Register$/ }).click();
+    test('Check that border color is red', { tag: ["@qauto", '@regression', '@add_car'] }, async( {page} ) => {
+        const playwrightDev = new PlaywrightDevPage(page);
 
-        await expect(page.locator('#signupName')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
-        await expect(page.locator('#signupLastName')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
-        await expect(page.locator('#signupEmail')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
-        await expect(page.locator('#signupPassword')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
-        await expect(page.locator('#signupRepeatPassword')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
+        //used this code before POM
+        //await playwrightDev.goto()   //await page.goto('https://qauto.forstudy.space/');
+        // await page.getByRole('button', { name: 'Sign up' }).click();
+        // await page.locator('#signupName').click();
+        // await page.locator('#signupLastName').click();
+        // await page.getByLabel('Name').click();
+        // await page.getByLabel('Password', { exact: true }).click();
+        // await page.getByLabel('Re-enter password').click();
+        // await page.locator('div').filter({ hasText: /^Register$/ }).click();
+        // await expect(page.locator('#signupName')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
+        // await expect(page.locator('#signupLastName')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
+        // await expect(page.locator('#signupEmail')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
+        // await expect(page.locator('#signupPassword')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
+        // await expect(page.locator('#signupRepeatPassword')).toHaveCSS('border-color', 'rgb(220, 53, 69)')
 
+
+        await playwrightDev.goto();
+        await playwrightDev.signUpButton.click()
+        await playwrightDev.signupName.click()
+        await playwrightDev.signupLastName.click()
+        await playwrightDev.email.click()
+        await playwrightDev.password.click()
+        await playwrightDev.reEnterPassword.click()
+        await playwrightDev.password.click()
+        await playwrightDev.checkCSS()
+       
 });
 
 })

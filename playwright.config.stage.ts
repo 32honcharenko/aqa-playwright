@@ -1,3 +1,5 @@
+//npx playwright test --config=playwright.config.stage.ts  запуск конфіг файла
+
 import { defineConfig, devices } from '@playwright/test';
 import {configDotenv} from "dotenv";
 
@@ -49,6 +51,12 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    viewport: { width: 1600, height: 100},
+    local: "de-DE",
+    timezoneId: "Europe/Berlin",
+    permissions: ['geolocation'],
+    geolocation: { longitude: 52.150002, latitude: 10.333333 },
+
   },
 
   /* Configure projects for major browsers */
