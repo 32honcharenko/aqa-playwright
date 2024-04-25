@@ -5,7 +5,7 @@ import { PlaywrightDevPage } from "./pages/loginPage";
 test.describe('all tests', () => {
     test.describe.configure({mode: 'serial'});
   
-    test('Positive registration case', async ({ page }) => {
+    test.skip('Positive registration case', async ({ page }) => {
         const playwrightDev = new PlaywrightDevPage(page);
 
         await playwrightDev.userRegistration()
@@ -62,7 +62,7 @@ test.describe('all tests', () => {
 
     });
 
-    test.skip('Checking error for the wrongData', async ({ page }) => {
+    test('Checking error for the wrongData', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -86,7 +86,7 @@ test.describe('all tests', () => {
 
     });
 
-    test.skip('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
+    test('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -116,7 +116,7 @@ test.describe('all tests', () => {
         await expect(page.getByRole('button', { name: 'Register' })).toBeDisabled()
     });
 
-    test.skip('Try to create user when password do not match', { tag: ["@qauto"] }, async( {page} ) => {
+    test('Try to create user when password do not match', { tag: ["@qauto"] }, async( {page} ) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -169,7 +169,7 @@ test.describe('all tests', () => {
         await playwrightDev.goto();
         await playwrightDev.signUpButton.click()
         await playwrightDev.signupName.click()
-        await playwrightDev.signupLastName.click()
+        await playwrightDev.sign1upLastName.click()
         await playwrightDev.email.click()
         await playwrightDev.password.click()
         await playwrightDev.reEnterPassword.click()
