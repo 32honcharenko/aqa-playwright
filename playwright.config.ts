@@ -33,12 +33,14 @@ export default defineConfig({
   ['dot'],
   ['line'],
   ['./my-awesome-reporter.ts'],
-  [
-    '@testomatio/reporter/lib/adapter/playwright.js',
-    {
-      apiKey: "tstmt_osRc3Pka7BWuBcZBVkDLe6cJxh-DITEfIg1713806832"
-    },
-  ],
+
+  // [
+  //   '@testomatio/reporter/lib/adapter/playwright.js',
+  //   {
+  //     apiKey: "tstmt_osRc3Pka7BWuBcZBVkDLe6cJxh-DITEfIg1713806832"
+  //   },
+  // ],
+  
   ],
   
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

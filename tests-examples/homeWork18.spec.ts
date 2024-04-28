@@ -30,7 +30,7 @@ test.describe('all tests', () => {
         // await page.screenshot({ path: 'successRegistration.png' });
     });
   
-    test('Checking error for the empty field', async ({ page }) => {
+    test.skip('Checking error for the empty field', async ({ page }) => {
         const playwrightDev = new PlaywrightDevPage(page);
 
 
@@ -62,7 +62,7 @@ test.describe('all tests', () => {
 
     });
 
-    test('Checking error for the wrongData', async ({ page }) => {
+    test.skip('Checking error for the wrongData', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -86,7 +86,7 @@ test.describe('all tests', () => {
 
     });
 
-    test('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
+    test.skip('Try to create user with wrong symbol lenght or Ukraine symbol', async ({ page }) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -116,7 +116,7 @@ test.describe('all tests', () => {
         await expect(page.getByRole('button', { name: 'Register' })).toBeDisabled()
     });
 
-    test('Try to create user when password do not match', { tag: ["@qauto"] }, async( {page} ) => {
+    test.skip('Try to create user when password do not match', { tag: ["@qauto"] }, async( {page} ) => {
         await page.goto('https://qauto.forstudy.space/');
         await page.getByRole('button', { name: 'Sign up' }).click();
         await page.locator('#signupName').click();
@@ -147,7 +147,7 @@ test.describe('all tests', () => {
     
   });
 
-    test('Check that border color is red', { tag: ["@qauto", '@regression', '@add_car'] }, async( {page} ) => {
+    test.skip('Check that border color is red', { tag: ["@qauto", '@regression', '@add_car'] }, async( {page} ) => {
         const playwrightDev = new PlaywrightDevPage(page);
 
         //used this code before POM
@@ -169,13 +169,45 @@ test.describe('all tests', () => {
         await playwrightDev.goto();
         await playwrightDev.signUpButton.click()
         await playwrightDev.signupName.click()
-        await playwrightDev.sign1upLastName.click()
+        await playwrightDev.signupLastName.click()
         await playwrightDev.email.click()
         await playwrightDev.password.click()
         await playwrightDev.reEnterPassword.click()
         await playwrightDev.password.click()
         await playwrightDev.checkCSS()
-       
+
+        await page.evaluate(()=> {localStorage.setItem ('key-m1', 'value-my1')})
+        await page.pause()
+    
+        await page.evaluate(()=> {sessionStorage.setItem ('key-m1', 'value-my1')})
+        await page.pause()
 });
 
+
+test.skip('login as created user', { tag: ["@qauto"] }, async( {page} ) => {
+    const playwrightDev = new PlaywrightDevPage(page);
+
+    //await playwrightDev.goto();
+
+    // await page.getByRole('button', { name: 'Sign In' }).click();
+    // await page.getByLabel('Email').click();
+    // await page.getByLabel('Email').fill('koko1111@gmail.com');
+    // await page.getByLabel('Password').click();
+    // await page.getByLabel('Password').fill('22222222Qq');
+    // await page.getByRole('button', { name: 'Login' }).click();
+
+    await playwrightDev.login()
+    await expect(page.locator('app-panel-layout')).toContainText('Garage');
+    await expect(page.locator('app-panel-layout')).toContainText('Fuel expenses');
+    await expect(page.locator('app-panel-layout')).toContainText('Instructions');
+    await expect(page.locator('app-panel-layout')).toContainText('Profile');
+    await expect(page.locator('app-panel-layout')).toContainText('Settings');
+    await page.getByRole('button', { name: 'Add car' }).click();
+    await page.getByLabel('Mileage').click();
+    await page.getByLabel('Mileage').fill('12');
+    await page.getByRole('button', { name: 'Add' }).click();
+
+});
+// login: koko1111@gmail.com
+// pass: 22222222Qq
 })

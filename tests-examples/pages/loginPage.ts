@@ -9,7 +9,12 @@ export class PlaywrightDevPage {
   readonly email: Locator;
   readonly password: Locator;
   readonly reEnterPassword: Locator;
+  readonly signInButton: Locator;
 
+  readonly loginButton: Locator;
+  readonly loginEmail: Locator;
+  readonly loginPassword: Locator;
+  
   readonly error1: Locator;
   readonly error2: Locator;
   readonly error3: Locator;
@@ -22,11 +27,16 @@ export class PlaywrightDevPage {
   constructor(page: Page) {
     this.page = page;
     this.signUpButton = page.getByRole('button', { name: 'Sign up' });
+    this.signInButton = page.getByRole('button', { name: 'Sign In' });
     this.signupName = page.locator('#signupName');
     this.signupLastName = page.locator('#signupLastName');
     this.email = page.getByLabel('Name'); //getByLabel
     this.password = page.getByLabel('Password', { exact: true });
     this.reEnterPassword = page.getByLabel('Re-enter password');
+
+    this.loginButton = page.getByRole('button', { name: 'Login' })
+    this.loginEmail = page.getByLabel('Email');
+    this.loginPassword = page.getByLabel('Password')
 
     this.error1 = page.getByText('Name required', { exact: true })
     this.error2 = page.getByText('Last name required')
@@ -76,5 +86,16 @@ export class PlaywrightDevPage {
     await this.reEnterPassword.fill("11111111Qq")
     await this.registerButton.click()
   }
+
+  async login() {
+    
+    await this.goto()
+    await this.signInButton.click()
+    await this.loginEmail.click()
+    await this.loginEmail.fill('koko1111@gmail.com')
+    await this.loginPassword.click()
+    await this.loginPassword.fill("22222222Qq")
+    await this.loginButton.click()
+}
 
 }
