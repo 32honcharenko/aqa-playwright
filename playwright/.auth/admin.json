@@ -1,0 +1,35 @@
+{
+  "cookies": [
+    {
+      "name": "YSC",
+      "value": "9SewViz2ZOQ",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "VISITOR_INFO1_LIVE",
+      "value": "2dugjLR_1qk",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1730118666.163136,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "VISITOR_PRIVACY_METADATA",
+      "value": "CgJVQRIEGgAgFw%3D%3D",
+      "domain": ".youtube.com",
+      "path": "/",
+      "expires": 1730118666.163377,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": []
+}
