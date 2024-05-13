@@ -18,6 +18,8 @@ describe('tests', () => {
       
     test('check error if wrong URL', async () => {
         await expect(fetchData()).rejects.toThrow('wrong URL');
+
+        
       });
 
 })
@@ -62,6 +64,8 @@ describe('checkHeaderAndParams', () => {
         }).reply(200, expectedResponse);
         const response = await checkHeaderAndParams();
         expect(response).toEqual(expectedResponse);
+
+        expect(response.headers['content-type']).toMatch
     });
   
   });   
@@ -70,4 +74,6 @@ describe('checkHeaderAndParams', () => {
 
 
 
+//   expect(response.headers['content-type']).toMatch(/json/);
 
+//   expect(response.headers['Authorizatio']).toMatch(/some-data/);
